@@ -1,0 +1,26 @@
+---
+interface Props { name?: string; class?: string; }
+const { name = 'arrow', class: className } = Astro.props;
+const paths: Record<string, string[]> = {
+  calendar: ['M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z', 'M7 3v4M17 3v4M3 11h18', 'm8 16 2 2 5-4'],
+  arrow: ['M4 12h15', 'm13 5 7 7-7 7'],
+  diagonal: ['M6 18 18 6', 'M6 6h12v12'],
+  down: ['M12 4v15', 'm5 13 7 7 7-7'],
+  wifi: ['M3 8a15 15 0 0 1 18 0', 'M6 12a10 10 0 0 1 12 0', 'M9 16a5 5 0 0 1 6 0', 'M12 20h.01'],
+  kitchen: ['M5 3v7a3 3 0 0 0 6 0V3', 'M8 3v18', 'M18 3c-3 3-4 7 0 9V21', 'M18 3v9'],
+  laundry: ['M4 3h16v18H4z', 'M7 6h.01M10 6h.01', 'M17 14a5 5 0 1 1-10 0 5 5 0 0 1 10 0', 'M7 14c3-3 7 3 10 0'],
+  desk: ['M3 12h18', 'M5 12v9M19 12v9', 'M7 3h10v6H7z', 'M12 9v3'],
+  amenity: ['M9 7h7v14H7V9a2 2 0 0 1 2-2Z', 'M10 7V3h5', 'M13 3v4', 'M10 12h3M10 16h3'],
+  smoke: ['M3 16h13v4H3z', 'M19 16v4M22 16v4', 'M10 3c5 3-3 5 2 8', 'M3 3 21 21'],
+  language: ['M3 5h12M9 3v2M5 5c0 6 3 9 8 11M13 5c0 5-4 10-10 12', 'm13 21 4-10 4 10M15 17h4'],
+  terrace: ['M3 21h18M5 21V11h14v10M9 11v10M15 11v10', 'M4 7h16M8 3v4M16 3v4'],
+  pin: ['M20 10c0 6-8 11-8 11S4 16 4 10a8 8 0 0 1 16 0Z', 'M15 10a3 3 0 1 1-6 0 3 3 0 0 1 6 0'],
+  train: ['M5 16V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2Z', 'M5 10h14M12 3v7M8 14h.01M16 14h.01M8 18l-3 3M16 18l3 3'],
+  stairs: ['M3 20h5v-5h5v-5h5V5h4', 'M3 10 13 1M3 1h10v9'],
+  instagram: ['M7 3h10a4 4 0 0 1 4 4v10a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V7a4 4 0 0 1 4-4Z', 'M16 12a4 4 0 1 1-8 0 4 4 0 0 1 8 0', 'M17.5 6.5h.01'],
+  message: ['M21 11a9 9 0 0 1-9 9H4l-1 2V11a9 9 0 0 1 18 0Z', 'M7 11h10M7 7h7'],
+};
+---
+<svg class={className} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {(paths[name] ?? paths.arrow).map((d) => <path d={d} />)}
+</svg>

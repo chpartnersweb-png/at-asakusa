@@ -1,0 +1,36 @@
+---
+import { Image } from 'astro:assets';
+import kitchen from '../assets/line_oa_chat_261112_140717.jpg';
+import utensils from '../assets/line_oa_chat_261112_140743.jpg';
+import desk from '../assets/line_oa_chat_261112_140723.jpg';
+import laundry from '../assets/line_oa_chat_261112_140730.jpg';
+import bath from '../assets/line_oa_chat_261112_140728.jpg';
+import dishes from '../assets/line_oa_chat_261112_140744.jpg';
+import SectionLabel from './SectionLabel.astro';
+import Icon from './Icon.astro';
+import { amenities } from '../data/property';
+---
+<section id="amenities" class="amenities section-space" aria-labelledby="amenities-title">
+  <div class="page-gutter">
+    <SectionLabel number="03" title="The comfort of everyday" />
+    <div class="amenities-heading" data-reveal><h2 id="amenities-title" class="display-heading">旅先でも、<br />暮らしのペースで。</h2><p>朝のコーヒーも、いつもの洗濯も。<br />日々の小さなことができるから、<br />少し長い滞在も、もっと気軽に。</p></div>
+    <div class="amenities-editorial">
+      <article class="kitchen-feature">
+        <div class="photo-frame" data-reveal><Image src={kitchen} alt="冷蔵庫、電子レンジ、コンロ、シンクを備えた客室のキッチン" widths={[600, 900, 1280]} sizes="(max-width: 767px) 92vw, 62vw" width={1280} format="webp" loading="lazy" /></div>
+        <div class="amenity-caption" data-reveal><span class="eyebrow">01 / COOK</span><div><h3>「何を食べよう」も、自由に。</h3><p>フルキッチンと調理器具をご用意。買ってきた食材で料理をしたり、お気に入りの味を楽しんだり。旅先の食卓を、自分たちらしく。</p></div></div>
+      </article>
+      <figure class="utensils-photo" data-reveal><Image src={utensils} alt="キッチンに用意されたフライパンや調理器具" widths={[240, 400, 600]} sizes="(max-width: 767px) 35vw, 20vw" width={600} format="webp" loading="lazy" /><figcaption>TOOLS FOR YOUR STAY</figcaption></figure>
+      <article class="desk-feature">
+        <div class="photo-frame" data-reveal><Image src={desk} alt="窓辺の木製ワークデスクとスツール" widths={[480, 720, 1000]} sizes="(max-width: 767px) 76vw, 47vw" width={1000} format="webp" loading="lazy" /></div>
+        <div class="amenity-caption" data-reveal><span class="eyebrow">02 / WORK & UNWIND</span><div><h3>ひと息つく。少し、仕事する。</h3><p>ワークデスクと無料Wi-Fiを完備。お仕事をする日も、ゆっくり過ごす日も、心地よい居場所に。</p></div></div>
+      </article>
+      <article class="laundry-feature">
+        <div class="laundry-pair" data-reveal><Image src={laundry} alt="客室内の洗濯機" widths={[240, 400, 600]} sizes="(max-width: 767px) 42vw, 17vw" width={600} format="webp" loading="lazy" /><Image src={bath} alt="バスタブとシャワーを備えた浴室" widths={[240, 400, 600]} sizes="(max-width: 767px) 42vw, 17vw" width={600} format="webp" loading="lazy" /></div>
+        <div class="amenity-caption" data-reveal><span class="eyebrow">03 / REFRESH</span><div><h3>荷物は軽く、滞在は長く。</h3><p>洗濯機を備えているから、着替えの多いお子さまとの旅行や、長期滞在にも便利です。</p></div></div>
+      </article>
+      <figure class="dishes-photo" data-reveal><Image src={dishes} alt="木の天板に並べられた食器とカトラリー" widths={[240, 400, 600]} sizes="(max-width: 767px) 40vw, 17vw" width={600} format="webp" loading="lazy" /><figcaption>MAKE YOURSELF AT HOME.</figcaption></figure>
+    </div>
+    <div class="amenity-list" data-reveal>{amenities.map((item) => <div><Icon name={item.icon} /><span>{item.name}</span></div>)}</div>
+    <p class="amenity-footnote">テラスは1階客室のみ、上階はバルコニー付きです。BBQ・パーティーでのご利用はできません。</p>
+  </div>
+</section>

@@ -1,16 +1,56 @@
 ---
----
+import SiteHeader from '../components/SiteHeader.astro';
+import Hero from '../components/Hero.astro';
+import StayConcept from '../components/StayConcept.astro';
+import Rooms from '../components/Rooms.astro';
+import Amenities from '../components/Amenities.astro';
+import NeighborhoodAccess from '../components/NeighborhoodAccess.astro';
+import StayGuide from '../components/StayGuide.astro';
+import Reservation from '../components/Reservation.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { getImage } from 'astro:assets';
+import heroImage from '../assets/line_oa_chat_261112_140711.jpg';
+import '../styles/global.css';
+import '../styles/home.css';
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+const description = '浅草に、わが家のような旅の拠点を。AT ASAKUSAは全室2ベッドルーム・フルキッチン・洗濯機付きのアパートメントホテル。推奨4名・最大6名で、家族や友人との東京滞在を心地よく。';
+const ogImage = await getImage({ src: heroImage, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
+const structuredData = {
+  '@context': 'https://schema.org', '@type': 'LodgingBusiness', name: 'AT ASAKUSA', alternateName: 'エーティー アサクサ', description,
+  telephone: '+81-90-8303-6025',
+  address: { '@type': 'PostalAddress', postalCode: '111-0031', addressRegion: '東京都', addressLocality: '台東区', streetAddress: '千束3丁目21-9 パークグランデ浅草', addressCountry: 'JP' },
+  checkinTime: '16:00', checkoutTime: '10:00', petsAllowed: false, smokingAllowed: false,
+  sameAs: ['https://www.instagram.com/ray_minpaku'],
+};
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f4f1e9" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:site_name" content="AT ASAKUSA" />
+    <meta property="og:title" content="AT ASAKUSA｜浅草に、わが家のような旅の拠点を。" />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={Astro.site ? new URL(ogImage.src, Astro.site).href : ogImage.src} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/at-asakusa.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet" />
+    <title>AT ASAKUSA｜浅草に、わが家のような旅の拠点を。</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body id="top">
+    <SiteHeader />
+    <main id="main"><Hero /><StayConcept /><Rooms /><Amenities /><NeighborhoodAccess /><StayGuide /><Reservation /></main>
+    <SiteFooter />
+    <script>
+      import { initSite } from '../scripts/site';
+      initSite();
+    </script>
+  </body>
 </html>

@@ -1,0 +1,48 @@
+---
+import { Image } from 'astro:assets';
+import living from '../assets/line_oa_chat_261112_140707.jpg';
+import livingWide from '../assets/line_oa_chat_261112_140711.jpg';
+import roomDetail from '../assets/line_oa_chat_261112_140713.jpg';
+import bedroom from '../assets/line_oa_chat_261112_140720.jpg';
+import stairs from '../assets/line_oa_chat_261112_140741.jpg';
+import SectionLabel from './SectionLabel.astro';
+import Icon from './Icon.astro';
+---
+<section id="rooms" class="rooms section-space page-gutter" aria-labelledby="rooms-title">
+  <SectionLabel number="02" title="Rooms for your people" />
+  <div class="rooms-grid">
+    <aside class="rooms-aside">
+      <p class="eyebrow">OUR ROOMS</p>
+      <h2 id="rooms-title" class="display-heading">一緒に過ごす。<br />自分らしく、<br class="desktop-break" />くつろぐ。</h2>
+      <nav class="room-index" aria-label="客室紹介の目次">
+        <a href="#room-together" class="is-active" data-room-link="room-together"><span>01</span>みんなでくつろぐ<Icon name="diagonal" /></a>
+        <a href="#room-rest" data-room-link="room-rest"><span>02</span>それぞれに休む<Icon name="diagonal" /></a>
+        <a href="#room-floor" data-room-link="room-floor"><span>03</span>階ごとに選ぶ<Icon name="diagonal" /></a>
+      </nav>
+      <p class="room-spec">全室 約30㎡・2ベッドルーム<br />推奨4名／最大6名</p>
+    </aside>
+    <div class="room-stories">
+      <article id="room-together" class="room-story" data-room-story>
+        <div class="story-title" data-reveal><span class="eyebrow">01 / TOGETHER</span><h3>話したり、のんびりしたり。<br />旅先にも、いつもの時間。</h3></div>
+        <div class="room-gallery" data-gallery aria-roledescription="カルーセル" aria-label="客室の写真">
+          <div class="gallery-viewport" data-reveal>
+            <div class="gallery-slide" data-slide><Image src={living} alt="畳とローテーブルを備えた青緑の壁の客室" widths={[600, 900, 1280]} sizes="(max-width: 767px) 92vw, 65vw" width={1280} format="webp" loading="lazy" /></div>
+            <div class="gallery-slide" data-slide hidden><Image src={livingWide} alt="客室内のカウンター、畳、ベッドが見える全景" widths={[600, 900, 1280]} sizes="(max-width: 767px) 92vw, 65vw" width={1280} format="webp" loading="lazy" /></div>
+            <div class="gallery-slide" data-slide hidden><Image src={roomDetail} alt="木の家具と植物を配した客室のベッドスペース" widths={[600, 900, 1280]} sizes="(max-width: 767px) 92vw, 65vw" width={1280} format="webp" loading="lazy" /></div>
+          </div>
+          <div class="gallery-bottom"><span>ROOM VIEWS <small>客室イメージ</small></span><div class="gallery-controls"><button type="button" data-gallery-prev aria-label="前の写真"><Icon name="arrow" /></button><span class="gallery-counter" aria-live="polite" aria-atomic="true"><b data-gallery-current>01</b><span> / 03</span></span><button type="button" data-gallery-next aria-label="次の写真"><Icon name="arrow" /></button></div></div>
+        </div>
+        <p class="story-copy" data-reveal>観光の合間に、お部屋でひと休み。畳の上でくつろいだり、明日の予定を相談したり。みんなで過ごす時間を、心地よく楽しめます。</p>
+      </article>
+      <article id="room-rest" class="room-story bedroom-story" data-room-story>
+        <div class="bedroom-photo photo-frame" data-reveal><Image src={bedroom} alt="カーテン越しに光が入る、木のヘッドボードを備えたベッドルーム" widths={[480, 720, 960]} sizes="(max-width: 767px) 92vw, 36vw" width={960} format="webp" loading="lazy" /></div>
+        <div class="bedroom-copy" data-reveal><span class="eyebrow">02 / REST</span><h3>おやすみは、<br />それぞれのペースで。</h3><p>全室にふたつの寝室をご用意。<br />一緒に旅をしながらも、休む時間は大切に。家族や友人との滞在に、ちょうどいい距離感を。</p><small>※掲載写真は客室のイメージです。</small></div>
+      </article>
+      <article id="room-floor" class="room-story floor-story" data-room-story>
+        <div data-reveal><span class="eyebrow">03 / CHOOSE YOUR FLOOR</span><h3>旅のかたちに合わせて、<br />お部屋の階を選ぶ。</h3><p class="story-copy">1階はプライベートテラス、上階はバルコニー付き。<br />ご同行の方やお荷物に合わせて、お選びください。</p></div>
+        <div class="floor-note" data-reveal><Image src={stairs} alt="上階へ続く建物内の階段" width={210} format="webp" loading="lazy" /><div><Icon name="stairs" /><h4>エレベーターはありません。</h4><p>上階へは階段での移動となります。<br />ご予約の際は、お部屋の階をご確認ください。</p></div></div>
+        <a class="text-link" href="#reservation">階ごとのお部屋・予約を見る<Icon name="diagonal" /></a>
+      </article>
+    </div>
+  </div>
+</section>

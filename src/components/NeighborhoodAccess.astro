@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+import street from '../assets/line_oa_chat_261112_140704.jpg';
+import SectionLabel from './SectionLabel.astro';
+import Icon from './Icon.astro';
+import { spots, links } from '../data/property';
+---
+<section id="access" class="neighborhood section-space page-gutter" aria-labelledby="neighborhood-title">
+  <SectionLabel number="04" title="A little walk, a new discovery" />
+  <div class="neighborhood-heading" data-reveal>
+    <div><p class="eyebrow">HELLO, ASAKUSA.</p><h2 id="neighborhood-title" class="display-heading">この街も、<br />旅の居場所に。</h2></div>
+    <p>浅草寺やかっぱ橋へ足を延ばしたり、<br />近くの街をゆっくり歩いたり。<br />いつもの観光に、小さな発見を。</p>
+    <div class="asakusa-stamp" aria-hidden="true"><span>東京</span><span>浅草</span><i></i></div>
+  </div>
+  <ol class="spot-list">{spots.map((spot, i) => <li data-reveal><span class="spot-number">0{i + 1}</span><div class="spot-name"><small>{spot.en}</small><h3>{spot.name}</h3></div><p>{spot.description}</p><span class="spot-time">{spot.time}</span></li>)}</ol>
+  <div class="access-grid">
+    <div class="access-copy" data-reveal>
+      <p class="eyebrow">FIND US HERE</p><h3 class="access-title">浅草の旅は、<br />ここから。</h3>
+      <address><strong>AT ASAKUSA<span>エーティー アサクサ</span></strong>〒111-0031<br />東京都台東区千束3丁目21-9<br />パークグランデ浅草</address>
+      <div class="access-stations"><Icon name="train" /><p>東京メトロ日比谷線「入谷駅」<b>徒歩10分</b><br />つくばエクスプレス「浅草駅」<b>徒歩10分</b></p></div>
+      <p class="access-parking">駐車場はありません。駐輪場あり。</p>
+      <a href={links.map} class="button button-outline" target="_blank" rel="noopener noreferrer">Googleマップで開く<Icon name="diagonal" /></a>
+      <div class="airport-access"><span class="eyebrow">FROM THE AIRPORT</span><p><span>羽田空港</span><b>車 約40分</b></p><p><span>成田空港</span><b>車 約70分</b></p><small>※所要時間は目安です。道路状況等により異なります。</small><a href={links.line} target="_blank" rel="noopener noreferrer">有料の空港送迎について相談する<Icon name="diagonal" /></a></div>
+    </div>
+    <figure class="access-photo" data-reveal><div class="photo-frame"><Image src={street} alt="街路樹のある通りから見たAT ASAKUSAの建物" widths={[400, 640, 960]} sizes="(max-width: 767px) 92vw, 45vw" width={960} format="webp" loading="lazy" /></div><figcaption><Icon name="pin" /><span>3-21-9 SENZOKU, TAITO-KU, TOKYO</span></figcaption></figure>
+  </div>
+</section>

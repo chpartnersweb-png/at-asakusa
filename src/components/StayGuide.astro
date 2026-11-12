@@ -1,0 +1,16 @@
+---
+import SectionLabel from './SectionLabel.astro';
+import Icon from './Icon.astro';
+import { faqs, links } from '../data/property';
+---
+<section id="guide" class="guide section-space page-gutter" aria-labelledby="guide-title">
+  <SectionLabel number="05" title="Before your stay" />
+  <div class="guide-grid">
+    <div class="guide-heading" data-reveal><p class="eyebrow">A FEW THINGS TO KNOW</p><h2 id="guide-title" class="display-heading">旅の前に、<br />知っておきたいこと。</h2><p>心地よくお過ごしいただくための<br />ご案内をまとめました。</p><a href={links.line} class="text-link" target="_blank" rel="noopener noreferrer">LINEでお問い合わせ<Icon name="diagonal" /></a></div>
+    <div class="guide-content">
+      <dl class="stay-times" data-reveal><div><dt>CHECK IN<span>チェックイン</span></dt><dd>16:00<span>—</span>24:00</dd></div><div><dt>CHECK OUT<span>チェックアウト</span></dt><dd>10:00</dd></div></dl>
+      <p class="checkin-note" data-reveal><span class="red-dot"></span>非対面のスマートチェックイン／年中無休</p>
+      <div class="faq-list">{faqs.map((faq, i) => <details class="faq-item" data-reveal><summary aria-controls={`faq-answer-${i + 1}`}><span class="faq-q">Q{String(i + 1).padStart(2, '0')}</span><h3>{faq.question}</h3><span class="faq-plus" aria-hidden="true"></span></summary><div id={`faq-answer-${i + 1}`} class="faq-panel"><div class="faq-answer"><p>{faq.answer}</p></div></div></details>)}</div>
+    </div>
+  </div>
+</section>

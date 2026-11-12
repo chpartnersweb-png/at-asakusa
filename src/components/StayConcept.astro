@@ -1,0 +1,25 @@
+---
+import { Image } from 'astro:assets';
+import exterior from '../assets/line_oa_chat_261112_140701.jpg';
+import detail from '../assets/line_oa_chat_261112_140739.jpg';
+import SectionLabel from './SectionLabel.astro';
+---
+<section id="about" class="concept section-space page-gutter" aria-labelledby="about-title">
+  <SectionLabel number="01" title="A place to come home to" />
+  <div class="concept-grid">
+    <figure class="concept-exterior" data-reveal>
+      <div class="photo-frame"><Image src={exterior} alt="AT ASAKUSAがあるパークグランデ浅草の外観" widths={[400, 640, 960]} sizes="(max-width: 767px) 78vw, 38vw" width={800} format="webp" loading="lazy" /></div>
+      <figcaption><span>01 / THE ENTRANCE</span><span>浅草の街に、ただいま。</span></figcaption>
+    </figure>
+    <div class="concept-content">
+      <p class="eyebrow" data-reveal>STAY TOGETHER. FEEL AT HOME.</p>
+      <h2 id="about-title" class="display-heading" data-reveal>旅の時間に、<br />暮らしの余白を。</h2>
+      <div class="concept-prose" data-reveal>
+        <p>にぎやかな街を歩いたあと、<br />靴を脱いで、ほっとひと息。<br />今日の思い出を、みんなで話す。</p>
+        <p>AT ASAKUSAは、浅草にある<br class="desktop-break" />アパートメントホテルです。<br />ふたつの寝室とフルキッチンを備えたお部屋で、<br class="desktop-break" />家族や友人と、自分たちらしい滞在を。</p>
+        <p>目の前には公園。<br />小さなお子さまと一緒の旅にも、<br class="desktop-break" />日々のペースを大切にできる場所です。</p>
+      </div>
+      <figure class="concept-detail" data-reveal><Image src={detail} alt="青緑の壁と木の家具、クッションがある客室の一角" widths={[320, 480, 640]} sizes="(max-width: 767px) 60vw, 23vw" width={600} format="webp" loading="lazy" /><figcaption>Little details, everyday comfort.</figcaption></figure>
+    </div>
+  </div>
+</section>

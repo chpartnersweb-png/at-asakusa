@@ -1,0 +1,28 @@
+---
+import { Image } from 'astro:assets';
+import room from '../assets/line_oa_chat_261112_140711.jpg';
+import Icon from './Icon.astro';
+---
+<section class="hero" aria-labelledby="hero-title">
+  <div class="hero-heading page-gutter">
+    <div class="hero-title-wrap">
+      <p class="eyebrow hero-enter"><span class="red-dot"></span> YOUR HOME IN ASAKUSA, TOKYO</p>
+      <h1 id="hero-title"><span class="hero-line"><span>浅草に、わが家のような</span></span><span class="hero-line"><span>旅の拠点を。</span></span></h1>
+    </div>
+    <div class="hero-intro hero-enter">
+      <p>ふたつの寝室と、<br />いつもの暮らしの道具。<br />みんなで過ごす東京に、<br />くつろげる場所を。</p>
+      <a href="#about" class="hero-scroll"><span>SCROLL TO EXPLORE</span><Icon name="down" /></a>
+    </div>
+  </div>
+  <div class="hero-photo-wrap">
+    <div class="hero-photo" data-hero-photo>
+      <Image src={room} alt="青緑の壁と畳、木のテーブルがあるAT ASAKUSAの客室" widths={[640, 960, 1440, 1920, 2400]} sizes="100vw" width={1920} format="webp" quality={85} loading="eager" fetchpriority="high" />
+    </div>
+    <div class="hero-photo-caption"><span>AT ASAKUSA</span><span>A LITTLE MORE LIKE HOME.</span></div>
+  </div>
+  <div class="hero-facts page-gutter">
+    <p>APARTMENT HOTEL<span>エーティー アサクサ</span></p>
+    <ul aria-label="客室の基本情報"><li>全室<span>2</span>ベッドルーム</li><li>約<span>30</span>㎡</li><li>推奨<span>4</span>名・最大<span>6</span>名</li></ul>
+    <a class="text-link" href="#rooms">お部屋を見る<Icon name="diagonal" /></a>
+  </div>
+</section>

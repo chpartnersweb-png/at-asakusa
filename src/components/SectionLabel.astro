@@ -1,0 +1,7 @@
+---
+interface Props { number: string; title: string; light?: boolean; }
+const { number, title, light = false } = Astro.props;
+---
+<div class:list={['section-label', { 'is-light': light }]}>
+  <span class="section-number">({number})</span><span>{title}</span><span class="label-line"></span>
+</div>

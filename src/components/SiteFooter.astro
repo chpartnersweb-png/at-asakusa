@@ -1,0 +1,11 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.jpg';
+import { navigation, links } from '../data/property';
+import Icon from './Icon.astro';
+---
+<footer class="site-footer page-gutter">
+  <div class="footer-top"><a href="#top" class="footer-brand" aria-label="AT ASAKUSA ページの先頭へ"><Image src={logo} alt="AT ASAKUSA" width={300} format="webp" loading="lazy" /></a><p class="footer-message">A LITTLE MORE<br />LIKE HOME.<span>浅草に、わが家のような旅の拠点を。</span></p><a class="back-to-top" href="#top" aria-label="ページの先頭に戻る"><Icon name="arrow" /><span>BACK TO TOP</span></a></div>
+  <div class="footer-middle"><address><strong>AT ASAKUSA <span>エーティー アサクサ</span></strong><p>〒111-0031 東京都台東区千束3丁目21-9<br />パークグランデ浅草</p><a href="tel:09083036025">TEL. 090-8303-6025</a></address><nav aria-label="フッターナビゲーション">{navigation.map((item) => <a href={item.href}>{item.ja}</a>)}</nav><div class="footer-social"><a href={links.instagram} target="_blank" rel="noopener noreferrer"><Icon name="instagram" />Instagram<Icon name="diagonal" /></a><a href={links.line} target="_blank" rel="noopener noreferrer"><Icon name="message" />LINE<Icon name="diagonal" /></a><a href={links.map} target="_blank" rel="noopener noreferrer"><Icon name="pin" />Google Maps<Icon name="diagonal" /></a></div></div>
+  <div class="footer-bottom"><p>© {new Date().getFullYear()} AT ASAKUSA</p><span>TOKYO, JAPAN / YOUR HOME AWAY FROM HOME</span></div>
+</footer>
