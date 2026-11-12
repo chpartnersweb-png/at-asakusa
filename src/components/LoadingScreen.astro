@@ -12,6 +12,8 @@ import logo from '../assets/logo.jpg';
     const release = () => {
       if (!root.classList.contains('is-loading')) return;
       root.classList.remove('is-loading', 'is-revealing');
+      const shell = document.querySelector('.site-shell');
+      if (shell) shell.inert = false;
       const screen = document.querySelector('[data-loading-screen]');
       if (screen) screen.hidden = true;
       document.dispatchEvent(new Event('at:loading-complete'));

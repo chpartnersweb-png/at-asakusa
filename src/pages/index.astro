@@ -11,17 +11,70 @@ import Reservation from '../components/Reservation.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { getImage } from 'astro:assets';
 import heroImage from '../assets/line_oa_chat_261112_140711.jpg';
+import logo from '../assets/logo.jpg';
+import { links } from '../data/property';
+import { SITE_URL, SITE_NAME, SITE_NAME_JA, SEO_TITLE, SEO_DESCRIPTION, HERO_IMAGE_WIDTHS } from '../data/site.mjs';
 import '../styles/global.css';
 import '../styles/home.css';
 
-const description = '浅草に、わが家のような旅の拠点を。AT ASAKUSAは全室2ベッドルーム・フルキッチン・洗濯機付きのアパートメントホテル。推奨4名・最大6名で、家族や友人との東京滞在を心地よく。';
+const canonical = new URL('/', SITE_URL).href;
 const ogImage = await getImage({ src: heroImage, width: 1200, height: 630, fit: 'cover', format: 'jpg' });
+const heroPreload = await getImage({ src: heroImage, width: 1920, widths: HERO_IMAGE_WIDTHS, format: 'webp', quality: 85 });
+const logoImage = await getImage({ src: logo, width: 512, format: 'png' });
+const ogImageUrl = new URL(ogImage.src, canonical).href;
+const logoUrl = new URL(logoImage.src, canonical).href;
 const structuredData = {
-  '@context': 'https://schema.org', '@type': 'LodgingBusiness', name: 'AT ASAKUSA', alternateName: 'エーティー アサクサ', description,
-  telephone: '+81-90-8303-6025',
-  address: { '@type': 'PostalAddress', postalCode: '111-0031', addressRegion: '東京都', addressLocality: '台東区', streetAddress: '千束3丁目21-9 パークグランデ浅草', addressCountry: 'JP' },
-  checkinTime: '16:00', checkoutTime: '10:00', petsAllowed: false, smokingAllowed: false,
-  sameAs: ['https://www.instagram.com/ray_minpaku'],
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite', '@id': `${canonical}#website`,
+      url: canonical, name: SITE_NAME, alternateName: SITE_NAME_JA, inLanguage: 'ja',
+      publisher: { '@id': `${canonical}#hotel` },
+    },
+    {
+      '@type': 'WebPage', '@id': `${canonical}#webpage`,
+      url: canonical, name: SEO_TITLE, description: SEO_DESCRIPTION, inLanguage: 'ja',
+      isPartOf: { '@id': `${canonical}#website` },
+      mainEntity: { '@id': `${canonical}#hotel` },
+      primaryImageOfPage: { '@id': `${canonical}#primaryimage` },
+    },
+    {
+      '@type': 'ImageObject', '@id': `${canonical}#primaryimage`,
+      url: ogImageUrl, contentUrl: ogImageUrl, width: 1200, height: 630,
+      caption: 'AT ASAKUSAの畳と青緑の壁がある客室',
+    },
+    {
+      '@type': 'LodgingBusiness', '@id': `${canonical}#hotel`,
+      url: canonical, name: SITE_NAME, alternateName: SITE_NAME_JA, description: SEO_DESCRIPTION,
+      telephone: '+81-90-8303-6025',
+      address: {
+        '@type': 'PostalAddress', postalCode: '111-0031', addressRegion: '東京都',
+        addressLocality: '台東区', streetAddress: '千束3丁目21-9 パークグランデ浅草', addressCountry: 'JP',
+      },
+      image: { '@id': `${canonical}#primaryimage` },
+      logo: { '@type': 'ImageObject', url: logoUrl, width: logoImage.options.width, height: logoImage.options.height },
+      hasMap: links.map,
+      checkinTime: '16:00:00+09:00', checkoutTime: '10:00:00+09:00',
+      petsAllowed: false, smokingAllowed: false,
+      availableLanguage: ['ja', 'en', 'zh', 'ko'],
+      amenityFeature: [
+        { '@type': 'LocationFeatureSpecification', name: '無料Wi-Fi', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'フルキッチン', value: true },
+        { '@type': 'LocationFeatureSpecification', name: '洗濯機', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'ワークデスク', value: true },
+        { '@type': 'LocationFeatureSpecification', name: 'エレベーター', value: false },
+        { '@type': 'LocationFeatureSpecification', name: '駐車場', value: false },
+      ],
+      containsPlace: {
+        '@type': 'Accommodation', name: '2ベッドルームの客室',
+        description: '全室約30㎡・推奨4名・最大6名。フルキッチンと洗濯機付き。',
+        numberOfBedrooms: 2,
+        floorSize: { '@type': 'QuantitativeValue', value: 30, unitCode: 'MTK' },
+        occupancy: { '@type': 'QuantitativeValue', maxValue: 6 },
+      },
+      sameAs: [links.instagram],
+    },
+  ],
 };
 ---
 <!doctype html>
@@ -29,21 +82,35 @@ const structuredData = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content={description} />
+    <meta name="description" content={SEO_DESCRIPTION} />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#f4f1e9" />
+    <link rel="canonical" href={canonical} />
+    <link rel="sitemap" type="application/xml" href={new URL('sitemap.xml', canonical).href} />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ja_JP" />
-    <meta property="og:site_name" content="AT ASAKUSA" />
-    <meta property="og:title" content="AT ASAKUSA｜浅草に、わが家のような旅の拠点を。" />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={Astro.site ? new URL(ogImage.src, Astro.site).href : ogImage.src} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={SEO_TITLE} />
+    <meta property="og:description" content={SEO_DESCRIPTION} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:secure_url" content={ogImageUrl} />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="AT ASAKUSAの畳と青緑の壁がある客室" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={SEO_TITLE} />
+    <meta name="twitter:description" content={SEO_DESCRIPTION} />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <meta name="twitter:image:alt" content="AT ASAKUSAの畳と青緑の壁がある客室" />
     <link rel="icon" type="image/svg+xml" href="/at-asakusa.svg" />
+    <link rel="preload" as="image" href={heroPreload.src} imagesrcset={heroPreload.srcSet.attribute} imagesizes="100vw" type="image/webp" fetchpriority="high" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600&family=Noto+Serif+JP:wght@400;500&display=swap" rel="stylesheet" />
-    <title>AT ASAKUSA｜浅草に、わが家のような旅の拠点を。</title>
-    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+    <title>{SEO_TITLE}</title>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g, '\\u003c')} />
   </head>
   <body id="top">
     <LoadingScreen />

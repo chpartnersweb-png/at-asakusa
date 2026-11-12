@@ -33,9 +33,9 @@ $env:PATH = 'C:\Users\callt\AppData\Local\Author Software\nvm\installs\v24.22.1;
 & 'C:\Users\callt\AppData\Local\Author Software\nvm\installs\v24.22.1\node.exe' 'node_modules/astro/astro.js' dev --background
 ```
 
-## 公開先が決まった際の設定
+## 公開URLの設定
 
-`astro.config.mjs` に本番の `site` URLを設定すると、OGP画像が本番ドメインの絶対URLになる。自社予約URLは未提供のため導線は追加していない。写真の階・部屋の対応は未確認のため客室イメージとして掲載。送迎の詳細条件はLINEで問い合わせる案内にしている。
+本番URLは `https://at-asakusa.pages.dev/`。`src/data/site.mjs`からAstroのsite設定・canonical・OGP等へ反映する。SEO実装の詳細は `docs/seo.md` に記載。自社予約URLは未提供のため導線は追加していない。写真の階・部屋の対応は未確認のため客室イメージとして掲載。送迎の詳細条件はLINEで問い合わせる案内にしている。
 
 ## ヘッダーデザインの変更
 

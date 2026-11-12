@@ -5,6 +5,8 @@ export function initLoading(signal: AbortSignal): Promise<void> {
   const root = document.documentElement;
   const screen = document.querySelector<HTMLElement>('[data-loading-screen]');
   if (!screen || !root.classList.contains('is-loading')) return Promise.resolve();
+  const shell = document.querySelector<HTMLElement>('.site-shell');
+  if (shell) shell.inert = true;
 
   const content = screen.querySelector<HTMLElement>('[data-loading-content]');
   const bar = screen.querySelector<HTMLElement>('[data-loading-bar]');
@@ -50,6 +52,7 @@ export function initLoading(signal: AbortSignal): Promise<void> {
     if (disposed) return;
     const wasLoading = root.classList.contains('is-loading');
     root.classList.remove('is-loading', 'is-revealing');
+    if (shell) shell.inert = false;
     screen.hidden = true;
     dispose();
     if (wasLoading) document.dispatchEvent(new Event('at:loading-complete'));

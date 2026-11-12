@@ -23,8 +23,7 @@ html { scroll-padding-top: calc(var(--header-height) + 24px); scrollbar-gutter: 
 body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 15px; font-weight: 400; line-height: 1.95; -webkit-font-smoothing: antialiased; }
 body.menu-open { overflow: hidden; }
 html.is-loading, html.is-loading body { overflow: hidden; }
-html.is-loading .site-shell { visibility: hidden; }
-html.is-loading.is-revealing .site-shell { visibility: visible; }
+html.is-loading .site-shell { pointer-events: none; }
 .page-loader { display: none; }
 html.is-loading .page-loader:not([hidden]) { position: fixed; z-index: 500; inset: 0; display: grid; place-items: center; width: 100%; height: 100%; min-height: 100svh; background: var(--paper); color: var(--ink); overflow: hidden; }
 .loader-top, .loader-bottom { position: absolute; left: var(--gutter); right: var(--gutter); display: flex; align-items: center; justify-content: space-between; gap: 20px; }

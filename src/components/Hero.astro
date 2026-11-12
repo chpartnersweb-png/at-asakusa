@@ -2,11 +2,12 @@
 import { Image } from 'astro:assets';
 import room from '../assets/line_oa_chat_261112_140711.jpg';
 import Icon from './Icon.astro';
+import { HERO_IMAGE_WIDTHS } from '../data/site.mjs';
 ---
 <section class="hero" aria-labelledby="hero-title">
   <div class="hero-heading page-gutter">
     <div class="hero-title-wrap">
-      <p class="eyebrow hero-enter"><span class="red-dot"></span> YOUR HOME IN ASAKUSA, TOKYO</p>
+      <p class="eyebrow hero-enter"><span class="red-dot"></span> AT ASAKUSA · 浅草のアパートメントホテル</p>
       <h1 id="hero-title"><span class="hero-line"><span>浅草に、わが家のような</span></span><span class="hero-line"><span>旅の拠点を。</span></span></h1>
     </div>
     <div class="hero-intro hero-enter">
@@ -16,7 +17,7 @@ import Icon from './Icon.astro';
   </div>
   <div class="hero-photo-wrap">
     <div class="hero-photo" data-hero-photo>
-      <Image src={room} alt="青緑の壁と畳、木のテーブルがあるAT ASAKUSAの客室" widths={[640, 960, 1440, 1920, 2400]} sizes="100vw" width={1920} format="webp" quality={85} loading="eager" fetchpriority="high" />
+      <Image src={room} alt="青緑の壁と畳、木のテーブルがあるAT ASAKUSAの客室" widths={HERO_IMAGE_WIDTHS} sizes="100vw" width={1920} format="webp" quality={85} loading="eager" fetchpriority="high" />
     </div>
     <div class="hero-photo-caption"><span>AT ASAKUSA</span><span>A LITTLE MORE LIKE HOME.</span></div>
   </div>
