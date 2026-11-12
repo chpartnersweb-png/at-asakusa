@@ -1,6 +1,7 @@
 import Lenis from 'lenis';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { initLoading } from './loading';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -10,6 +11,7 @@ export function initSite() {
   disposeSite?.();
   const controller = new AbortController();
   const { signal } = controller;
+  const loadingReady = initLoading(signal);
   const header = document.querySelector<HTMLElement>('[data-header]');
   const menu = document.querySelector<HTMLDialogElement>('[data-menu]');
   const menuToggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
@@ -28,6 +30,8 @@ export function initSite() {
   let menuTargetOpen = false;
   let menuRequest: { promise: Promise<boolean>; resolve: (completed: boolean) => void } | undefined;
   let anchorRequest = 0;
+  let entranceTimeline: gsap.core.Timeline | undefined;
+  const entranceTargets = '.site-header, .hero .eyebrow, .hero-line > span, .hero-intro, [data-hero-photo], .hero-facts';
 
   const refresh = () => {
     window.clearTimeout(refreshTimer);
@@ -36,6 +40,10 @@ export function initSite() {
       ScrollTrigger.refresh();
     }, 120);
   };
+  document.addEventListener('at:loading-complete', () => {
+    if (!menu?.open) lenis?.start();
+    refresh();
+  }, { signal });
 
   const setMenuState = (open: boolean, restoreFocus = true): Promise<boolean> => {
     if (!menu || !menuToggle || !menuToggleSlot || !menuPanel) return Promise.resolve(true);
@@ -282,6 +290,7 @@ export function initSite() {
   motionPreference.addEventListener('change', () => {
     if (!motionPreference.matches) return;
     menuAnimation?.progress(1);
+    entranceTimeline?.progress(1);
     finishDisclosures.forEach((finish) => finish());
   }, { signal });
 
@@ -320,17 +329,7 @@ export function initSite() {
       tick = (time: number) => localLenis?.raf(time * 1000);
       gsap.ticker.add(tick);
       gsap.ticker.lagSmoothing(0);
-      if (menu?.open) localLenis.stop();
-    }
-
-    // Content starts visible in CSS. Only a successfully initialized animation hides it.
-    if (window.scrollY < 80) {
-      gsap.timeline({ defaults: { ease: 'power3.out' } })
-        .from('.hero .eyebrow', { opacity: 0, y: 10, duration: .65 }, 0)
-        .from('.hero-line > span', { yPercent: 110, duration: 1.15, stagger: .12 }, .08)
-        .from('.hero-intro', { opacity: 0, y: 16, duration: .8 }, .32)
-        .from('[data-hero-photo]', { clipPath: 'inset(6% 2% 6% 2%)', duration: 1.25 }, .1)
-        .from('.hero-facts', { opacity: 0, y: 10, duration: .8 }, .45);
+      if (menu?.open || document.documentElement.classList.contains('is-loading')) localLenis.stop();
     }
 
     gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((element) => {
@@ -360,6 +359,21 @@ export function initSite() {
     };
   });
 
+  // Start the entrance only as the loading curtain reveals it, rather than behind it.
+  void loadingReady.then(() => {
+    if (signal.aborted) return;
+    if (window.scrollY < 80 && !motionPreference.matches) {
+      entranceTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } })
+        .from('.site-header', { opacity: 0, duration: .7 }, .05)
+        .from('.hero .eyebrow', { opacity: 0, y: 10, duration: .65 }, 0)
+        .from('.hero-line > span', { yPercent: 110, duration: 1.15, stagger: .12 }, .08)
+        .from('.hero-intro', { opacity: 0, y: 16, duration: .8 }, .32)
+        .from('[data-hero-photo]', { clipPath: 'inset(6% 2% 6% 2%)', duration: 1.25 }, .1)
+        .from('.hero-facts', { opacity: 0, y: 10, duration: .8 }, .45);
+    }
+    refresh();
+  });
+
   document.querySelectorAll<HTMLImageElement>('img').forEach((image) => {
     if (!image.complete) image.addEventListener('load', refresh, { once: true, signal });
   });
@@ -370,6 +384,8 @@ export function initSite() {
   disposeSite = () => {
     controller.abort();
     window.clearTimeout(refreshTimer);
+    entranceTimeline?.kill();
+    gsap.set(entranceTargets, { clearProps: 'opacity,transform,clipPath' });
     roomObserver.disconnect();
     menuAnimation?.kill();
     menuRequest?.resolve(false);

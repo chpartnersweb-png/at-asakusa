@@ -196,13 +196,16 @@
 .floor-description > p { font-size: 11px; margin-top: 7px; }
 .floor-description > small { display: block; font-size: 9px; color: var(--muted); margin-top: 6px; }
 .reservation-action { display: flex; align-items: center; justify-content: end; gap: 22px; font-size: 11px; line-height: 1.9; }
+.reservation-provider { display: grid; gap: 3px; }
+.provider-name { display: flex; align-items: center; gap: 7px; }
+.provider-name .brand-icon { width: 18px; height: 18px; }
 .round-arrow { display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; width: 56px; height: 56px; transition: background .3s, color .3s, border-color .3s; }
 .round-arrow svg { width: 21px; height: 21px; transition: transform .3s; }
 .reservation-row:hover .round-arrow { background: var(--green); color: var(--paper); border-color: var(--green); }
 .reservation-row:hover .round-arrow svg { transform: translate(2px, -2px); }
 .reservation-other { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 35px; }
 .reservation-other a { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding-block: 18px; border-bottom: 1px solid var(--line); font-size: 12px; }
-.reservation-other a > span { margin-right: auto; }
+.reservation-other a > span { margin-right: auto; min-width: 0; }
 .reservation-other svg { width: 18px; height: 18px; }
 .reservation-small { margin-top: 22px; font-size: 9px; color: var(--muted); }
 

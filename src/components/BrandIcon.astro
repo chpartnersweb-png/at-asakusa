@@ -1,0 +1,23 @@
+---
+import { siAirbnb, siBookingdotcom, siGooglemaps, siInstagram, siLine } from 'simple-icons';
+
+const icons = {
+  airbnb: siAirbnb,
+  booking: siBookingdotcom,
+  googlemaps: siGooglemaps,
+  instagram: siInstagram,
+  line: siLine,
+};
+
+interface Props {
+  name: keyof typeof icons;
+  class?: string;
+  size?: number;
+}
+
+const { name, class: className, size = 20 } = Astro.props;
+const icon = icons[name];
+---
+<svg class:list={['brand-icon', className]} width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" data-brand={icon.slug}>
+  <path d={icon.path} />
+</svg>

@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import logo from '../assets/logo.jpg';
 import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
 import { navigation, links } from '../data/property';
 ---
 <a class="skip-link" href="#main">本文へ移動</a>
@@ -23,7 +24,7 @@ import { navigation, links } from '../data/property';
   </a>
   <div class="header-actions">
     <a href="#access" class="header-utility"><Icon name="pin" /><span>アクセス</span></a>
-    <a href={links.line} class="header-utility header-line" target="_blank" rel="noopener noreferrer"><Icon name="message" /><span>LINE</span></a>
+    <a href={links.line} class="header-utility header-line" target="_blank" rel="noopener noreferrer"><BrandIcon name="line" /><span>LINE</span></a>
     <a href="#reservation" class="header-book" aria-label="お部屋を選んで予約"><Icon name="calendar" /><span>BOOK</span></a>
   </div>
 </header>
@@ -35,7 +36,7 @@ import { navigation, links } from '../data/property';
       {navigation.map((item, i) => <a href={item.href}><small>0{i + 1}</small><span><b>{item.en}</b><em>{item.ja}</em></span><Icon name="diagonal" /></a>)}
     </nav>
     <a class="button button-dark" href="#reservation">お部屋を選んで予約<Icon name="diagonal" /></a>
-    <a href={links.line} class="mobile-contact" target="_blank" rel="noopener noreferrer">LINEでお問い合わせ<Icon name="diagonal" /></a>
+    <a href={links.line} class="mobile-contact" target="_blank" rel="noopener noreferrer"><BrandIcon name="line" /><span>LINEでお問い合わせ</span><Icon name="diagonal" /></a>
   </div>
   </div>
 </dialog>

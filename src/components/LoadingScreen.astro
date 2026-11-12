@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.jpg';
+---
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    root.classList.add('is-loading');
+    root.dataset.loadingStarted = String(performance.now());
+
+    // This small standalone fallback also works if the main JavaScript fails to load.
+    const release = () => {
+      if (!root.classList.contains('is-loading')) return;
+      root.classList.remove('is-loading', 'is-revealing');
+      const screen = document.querySelector('[data-loading-screen]');
+      if (screen) screen.hidden = true;
+      document.dispatchEvent(new Event('at:loading-complete'));
+    };
+    const timeout = window.setTimeout(release, 5500);
+    const skip = (event) => {
+      if (event.target instanceof Element && event.target.closest('[data-loading-skip]')) release();
+    };
+    const restore = (event) => { if (event.persisted) release(); };
+    document.addEventListener('click', skip);
+    window.addEventListener('pageshow', restore);
+    document.addEventListener('at:loading-complete', () => {
+      window.clearTimeout(timeout);
+      document.removeEventListener('click', skip);
+      window.removeEventListener('pageshow', restore);
+    }, { once: true });
+  })();
+</script>
+<div class="page-loader" data-loading-screen>
+  <div class="loader-top"><span>APARTMENT HOTEL</span><span>TOKYO / ASAKUSA</span></div>
+  <div class="loader-center" data-loading-content>
+    <div class="loader-logo"><Image src={logo} alt="AT ASAKUSA" width={360} format="webp" loading="eager" data-loading-logo /></div>
+    <p class="loader-wordmark" aria-hidden="true">AT ASAKUSA</p>
+    <p class="loader-tagline">浅草に、わが家のような旅の拠点を。</p>
+    <div class="loader-progress" role="progressbar" aria-label="ページの読み込み準備" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-loading-progress>
+      <div class="loader-progress-track"><span data-loading-bar></span></div>
+      <div class="loader-progress-caption" aria-hidden="true"><span><i class="loader-dot"></i>PREPARING YOUR STAY</span><span><b data-loading-percent>00</b><small> / 100</small></span></div>
+    </div>
+  </div>
+  <div class="loader-bottom"><p>YOUR HOME AWAY FROM HOME.</p><button type="button" data-loading-skip>スキップ<span aria-hidden="true">↗</span></button></div>
+</div>

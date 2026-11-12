@@ -1,13 +1,14 @@
 ---
 import SectionLabel from './SectionLabel.astro';
 import Icon from './Icon.astro';
+import BrandIcon from './BrandIcon.astro';
 import { floors, links } from '../data/property';
 ---
 <section id="reservation" class="reservation section-space page-gutter" aria-labelledby="reservation-title">
   <SectionLabel number="06" title="Your next stay starts here" />
   <div class="reservation-heading" data-reveal><div><p class="eyebrow">STAY AT ASAKUSA</p><h2 id="reservation-title" class="display-heading">次の旅に、<br />帰ってくる場所を。</h2></div><p>ご希望の階を選んで、<br />空室・料金をご確認ください。<br /><span>全室2ベッドルーム／推奨4名・最大6名</span></p></div>
   <div class="reservation-notice" data-reveal><Icon name="stairs" /><p><strong>エレベーターはありません。</strong>上階へは階段をご利用いただきます。ご予約前に階をご確認ください。</p></div>
-  <div class="reservation-floors">{floors.map((floor) => <a class="reservation-row" href={floor.href} target="_blank" rel="noopener noreferrer" data-reveal aria-label={`${floor.floor} ${floor.title} Airbnbで空室・料金を確認（別タブで開きます）`}><div class="floor-id"><small>{floor.number}</small><span>{floor.floor}</span></div><div class="floor-description"><h3>{floor.title}</h3><p>{floor.description}</p><small>{floor.note}</small></div><span class="reservation-action"><span>Airbnbで<br />空室・料金を確認</span><span class="round-arrow"><Icon name="diagonal" /></span></span></a>)}</div>
-  <div class="reservation-other" data-reveal><a href={links.booking} target="_blank" rel="noopener noreferrer"><span>Booking.comからもご予約いただけます</span><Icon name="diagonal" /></a><a href={links.line} target="_blank" rel="noopener noreferrer"><Icon name="message" /><span>お部屋選びのご相談はLINEで</span><Icon name="diagonal" /></a></div>
+  <div class="reservation-floors">{floors.map((floor) => <a class="reservation-row" href={floor.href} target="_blank" rel="noopener noreferrer" data-reveal aria-label={`${floor.floor} ${floor.title} Airbnbで空室・料金を確認（別タブで開きます）`}><div class="floor-id"><small>{floor.number}</small><span>{floor.floor}</span></div><div class="floor-description"><h3>{floor.title}</h3><p>{floor.description}</p><small>{floor.note}</small></div><span class="reservation-action"><span class="reservation-provider"><span class="provider-name"><BrandIcon name="airbnb" size={18} />Airbnbで</span><span>空室・料金を確認</span></span><span class="round-arrow"><Icon name="diagonal" /></span></span></a>)}</div>
+  <div class="reservation-other" data-reveal><a href={links.booking} target="_blank" rel="noopener noreferrer"><BrandIcon name="booking" /><span>Booking.comからもご予約いただけます</span><Icon name="diagonal" /></a><a href={links.line} target="_blank" rel="noopener noreferrer"><BrandIcon name="line" /><span>お部屋選びのご相談はLINEで</span><Icon name="diagonal" /></a></div>
   <p class="reservation-small">料金・空室・予約条件は、各予約サイトでご確認ください。</p>
 </section>

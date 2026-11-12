@@ -1,5 +1,6 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
+import LoadingScreen from '../components/LoadingScreen.astro';
 import Hero from '../components/Hero.astro';
 import StayConcept from '../components/StayConcept.astro';
 import Rooms from '../components/Rooms.astro';
@@ -45,9 +46,12 @@ const structuredData = {
     <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body id="top">
+    <LoadingScreen />
+    <div class="site-shell">
     <SiteHeader />
     <main id="main"><Hero /><StayConcept /><Rooms /><Amenities /><NeighborhoodAccess /><StayGuide /><Reservation /></main>
     <SiteFooter />
+    </div>
     <script>
       import { initSite } from '../scripts/site';
       initSite();
